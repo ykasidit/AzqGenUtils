@@ -1,0 +1,18 @@
+/*
+============================================================================
+ Name        : bld.inf
+ Author      : Kasidit Yusuf
+ Copyright   : Freewill FX Co., Ltd.
+ Description : This file provides the information required for building the
+               whole of a AzenqosEngineUtils.
+============================================================================
+*/
+
+#ifdef EKA2//3rd edition
+PRJ_PLATFORMS
+WINSCW THUMB GCCE
+#endif
+
+
+PRJ_MMPFILES
+AzenqosEngineUtils.mmp
