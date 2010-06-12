@@ -1,11 +1,21 @@
 /*
- ============================================================================
- Name		: AzqDebugLogger.cpp
- Author	  : Kasidit Yusuf
- Copyright   : Copyright (c) Freewill FX Co., Ltd.
- Description : Static lib source file
- ============================================================================
- */
+    Copyright (C) 2010 Kasidit Yusuf.
+
+    This file is part of AzqGenUtils.
+
+    AzqGenUtils is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    AzqGenUtils is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with AzqGenUtils.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 //  Include Files
 
@@ -20,7 +30,7 @@ _LIT8(KTimeStampMillisecFormat8,"%02d%02d%02d_%02d:%02d:%02d.%03d");
 
 void TDebugLog::RmFileIfBiggerThan(const TDesC& fp, TInt aMaxSize)
 	{
-		TRAPD(err,
+
 		RFs fs = CCoeEnv::Static()->FsSession();
 		RFile file;
 		TInt fsz=0;
@@ -37,7 +47,7 @@ void TDebugLog::RmFileIfBiggerThan(const TDesC& fp, TInt aMaxSize)
 					EikFileUtils::DeleteFile(fp);
 				}
 
-		);
+
 	}
 
 void TDebugLog::InsertMakeTimeStrMilli8(TTime &time,TDes8& str) //str should be at least 19 in length
@@ -52,47 +62,38 @@ void TDebugLog::InsertMakeTimeStrMilli8(TTime &time,TDes8& str) //str should be 
 
 void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aVarName, const TInt aVal)
 		{
-		    #ifdef __SYMBIAN32__
-	TRAPD(err,
 			HBufC* buf = HBufC::NewLC(aVarName.Length()+20);
 			buf->Des().Format(_L(": %d"),aVal);
 			buf->Des().Insert(0,aVarName);
 
 			LogToFile(aLogFile,*buf);
 			CleanupStack::PopAndDestroy();
-			);
-			#endif
 
 		};
 
 void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aVarName, const TReal aVal)
 		{
-		    #ifdef __SYMBIAN32__
-	TRAPD(err,
 			HBufC* buf = HBufC::NewLC(aVarName.Length()+20);
 			buf->Des().Format(_L(": %f"),aVal);
 			buf->Des().Insert(0,aVarName);
 
 			LogToFile(aLogFile,*buf);
 			CleanupStack::PopAndDestroy();
-			);
-			#endif
+
 
 		};
 
 
 void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aVarName, const TDesC& aVal)
 		{
-			#ifdef __SYMBIAN32__
-	TRAPD(err,
 			HBufC* buf = HBufC::NewLC(aVarName.Length()+aVal.Length()+10);
 			buf->Des() += _L(": ");
 			buf->Des() += aVal;
 
 			LogToFile(aLogFile,*buf);
 			CleanupStack::PopAndDestroy();
-			);
-			#endif
+
+
 		};
 
 void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC8& aAzqLogLine)
@@ -105,8 +106,6 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC8& aAzqLogLine)
 
 void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 {
-	#ifdef __SYMBIAN32__
-	TRAPD(err,
 			//this does not write headers since it's not a CAzqLogLine = not a csv...
 			RmFileIfBiggerThan(aLogFile,KMaxLogFileSize);
 
@@ -152,6 +151,5 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 				User::Leave(err);
 			}
 			CleanupStack::PopAndDestroy();//fs
-	);
-	#endif
+
 };
