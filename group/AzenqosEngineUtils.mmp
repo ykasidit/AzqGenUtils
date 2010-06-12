@@ -4,5 +4,5 @@ UID 0
 SYSTEMINCLUDE \epoc32\include \epoc32\include\variant
 USERINCLUDE ..\inc
 SOURCEPATH ..\src
-SOURCE  AzenqosEngineUtils.cpp AzenqosCSVUtils.cpp AccessPointChooser.cpp FolderWatcher.cpp CallbackTimer.cpp
+SOURCE  AzenqosEngineUtils.cpp AzenqosCSVUtils.cpp AccessPointChooser.cpp FolderWatcher.cpp CallbackTimer.cpp AzqDebugLogger.cpp
 
