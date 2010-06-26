@@ -159,7 +159,7 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 			}
 			else
 			{
-				User::Leave(err);
+				//User::Leave(err);
 			}
 			CleanupStack::PopAndDestroy();//fs
 
