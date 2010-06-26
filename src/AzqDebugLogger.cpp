@@ -116,6 +116,8 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 			//this does not write headers since it's not a CAzqLogLine = not a csv...
 			RmFileIfBiggerThan(aLogFile,KMaxLogFileSize);
 
+			TRAPD(err,
+
 			RFs fs = CCoeEnv::Static()->FsSession();
 			User::LeaveIfError(fs.Connect());
 			CleanupClosePushL(fs);
@@ -163,6 +165,7 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 			}
 			CleanupStack::PopAndDestroy();//fs
 
+			);
 
 
 };
