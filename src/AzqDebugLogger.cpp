@@ -23,6 +23,8 @@
 #include "f32file.h"
 #include "eikfutil.h"
 
+#include <aknnotewrappers.h>
+
 
 const TInt KMaxLogFileSize = 10*1024;
 const TInt KTimeStampMillisecStrLen = 19;
@@ -31,9 +33,13 @@ _LIT8(KTimeStampMillisecFormat8,"%02d%02d%02d_%02d:%02d:%02d.%03d");
 void TDebugLog::RmFileIfBiggerThan(const TDesC& fp, TInt aMaxSize)
 	{
 
+
+
 		RFs fs = CCoeEnv::Static()->FsSession();
 		RFile file;
 		TInt fsz=0;
+
+		TRAPD(err,
 		User::LeaveIfError(fs.Connect());
 		CleanupClosePushL(fs);
 		User::LeaveIfError(file.Open(fs,fp,EFileRead));
@@ -41,6 +47,7 @@ void TDebugLog::RmFileIfBiggerThan(const TDesC& fp, TInt aMaxSize)
 		User::LeaveIfError(file.Size(fsz));
 		CleanupStack::PopAndDestroy();//file
 		CleanupStack::PopAndDestroy();//fs
+		);
 
 		if(fsz>KMaxLogFileSize)
 				{
@@ -121,8 +128,11 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 				err = file.Create(fs,aLogFile,EFileWrite);
 			}
 
+
 			if(err==KErrNone)
 			{
+
+
 				CleanupClosePushL(file);
 				TInt offset = 0;
 				TInt fsize=0;
@@ -140,6 +150,7 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 					ptr.Insert(0,KSpace);
 					InsertMakeTimeStrMilli8(now,ptr);
 
+
 				file.Write(*buf);
 				file.Write(_L8("\r\n"));
 				file.Flush();
@@ -151,5 +162,7 @@ void TDebugLog::LogToFile(const TDesC& aLogFile,const TDesC& aAzqLogLine)
 				User::Leave(err);
 			}
 			CleanupStack::PopAndDestroy();//fs
+
+
 
 };
